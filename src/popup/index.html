@@ -1,7 +1,8 @@
 <!doctype html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Question</title><link rel="stylesheet" href="popup.css"></head><body><main class="app">
 <header><div class="brand"><span class="logo">✦</span><span>AI Assistant</span></div><button id="settings" class="icon" title="Settings">⚙</button></header>
-<section id="ready" class="view"><div class="orb">✦</div><h1>Select your question</h1><p>Drag around one question. Nothing is sent until you review it and press Ask AI.</p><button id="select" class="primary">✦ Select Question</button><small class="shortcut">Ctrl + Shift + S</small></section>
+<section id="ready" class="view"><div class="orb">✦</div><h1>Select your question</h1><p>Drag around one question, then review it before sending. On viewers where selection is blocked, this button captures the visible tab and sends it to AI vision.</p><button id="select" class="primary">✦ Select Question</button><small class="shortcut">Ctrl + Shift + S</small></section>
 <section id="error" class="view hidden"><div class="error-icon">!</div><h2>Unable to start selection</h2><p id="error-text"></p><button id="retry" class="primary">Try Again</button></section>
+<section id="result" class="result hidden"><div class="eyebrow">AI VISION RESULT</div><div id="answer" class="answer"></div><div class="actions center"><button id="copy">Copy answer</button></div></section>
 <section class="history"><button id="history-toggle">Recent history <span>⌄</span></button><div id="history-list" class="hidden"></div></section>
 <footer><span>AI Provider: <b id="provider">OpenAI</b></span><span><i id="dot"></i><span id="connection">Not configured</span></span></footer>
 </main><script type="module" src="popup.js"></script></body></html>

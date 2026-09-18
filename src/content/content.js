@@ -9,6 +9,7 @@
   document.documentElement.appendChild(host);
   const wrap=shadow.querySelector(".wrap"),panel=shadow.querySelector(".panel"),body=shadow.querySelector(".body"),status=shadow.querySelector(".status"),actions=shadow.querySelector(".actions"),fab=shadow.querySelector(".fab");
   let selection=null,lastPayload=null,moved=false,drag=null;
+  if (window.top !== window) fab.style.display="none";
   const button=(label,action,primary=false)=>`<button data-action="${action}" class="${primary?"primary":""}">${label}</button>`;
   function bind(){actions.onclick=(event)=>{const action=event.target.closest("[data-action]")?.dataset.action;if(action==="cancel"){selection=null;panel.classList.remove("open");}if(action==="recapture"){panel.classList.remove("open");window.AIReaderSelectionMode.start();}if(action==="expand"&&selection?.suggestion)preview(selection.suggestion);if(action==="ask")ask();if(action==="retry")ask(lastPayload);if(action==="copy")navigator.clipboard.writeText(body.innerText||"");if(action==="explain")ask({...lastPayload,explainMore:true});};}
   function showReady(message="Only the selected question area will be analyzed."){host.style.visibility="visible";panel.classList.add("open");status.textContent="Ready";body.innerHTML='<div class="answer"></div>';body.firstChild.textContent=message;actions.innerHTML=button("Select Question","recapture",true);bind();}

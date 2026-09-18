@@ -34,7 +34,7 @@ Lalu buka `chrome://extensions`:
 2. Klik **Load unpacked**.
 3. Pilih folder `dist` hasil build.
 4. Buka ikon extension → Settings, masukkan OpenAI API key dan model.
-5. Buka halaman web biasa (`http`/`https`) lalu klik **Ask AI**.
+5. Buka halaman yang ingin dianalisis lalu klik **Ask AI**. Untuk `file://`, aktifkan **Allow access to file URLs** pada detail extension.
 
 `npm run dev` menjalankan Vite untuk mem-preview file UI, tetapi pengujian API Chrome dan content script tetap harus dilakukan melalui extension yang di-load dari `dist`.
 
@@ -65,9 +65,12 @@ assets/
 
 Turunkan class baru dari `AIProvider` di `src/ai/provider.js`, implementasikan `analyze()` dan `test()`, lalu daftarkan di `src/ai/index.js`. Tambahkan domain API yang benar secara sempit pada `host_permissions`.
 
-## Batasan MVP
+## Dukungan halaman dan fallback
 
-- Halaman internal Chrome, Chrome Web Store, dan beberapa PDF viewer tidak mengizinkan content script.
+- HTTP/HTTPS, SPA, halaman lokal `file://` (setelah izin file diaktifkan), dan frame yang dapat diakses memakai content script di semua frame.
+- Teks yang sedang dipilih diprioritaskan, lalu elemen aktif/DOM area, lalu screenshot vision.
+- PDF viewer dan halaman yang menolak content script memakai capture viewport jika browser mengizinkannya.
+- Halaman internal Chrome/Edge dan store tidak pernah dibypass. Jika capture juga ditolak, extension menampilkan alasan pembatasan browser.
 - Screenshot fallback membaca area viewport saat ini, bukan full-page scrolling capture.
 - Aplikasi berbasis canvas/WebGL tanpa DOM akan bergantung pada model vision.
 - Default shortcut dapat bentrok dengan shortcut Chrome/OS dan dapat diubah di `chrome://extensions/shortcuts`.

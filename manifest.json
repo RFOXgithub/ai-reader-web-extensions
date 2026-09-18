@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "Select a question area and analyze only that content with AI.",
   "permissions": ["activeTab", "storage", "contextMenus", "scripting"],
-  "host_permissions": ["https://api.openai.com/*"],
+  "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "src/background/service-worker.js",
     "type": "module"
@@ -22,10 +22,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": ["<all_urls>"],
       "js": ["src/content/text-extractor.js", "src/content/question-detector.js", "src/content/selection-overlay.js", "src/content/selection-mode.js", "src/content/content.js"],
       "css": ["src/content/content.css"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "all_frames": true,
+      "match_about_blank": true,
+      "match_origin_as_fallback": true
     }
   ]
 }
