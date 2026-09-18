@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RFOX Reader Settings</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="mark">✦</div>
+        <div>
+          <h1>RFOX Reader Settings</h1>
+          <p>Configure how the extension reads and answers.</p>
+        </div>
+      </header>
+      <form id="form">
+        <section>
+          <h2>AI Provider</h2>
+          <label
+            >Provider<select id="provider">
+              <option value="openai">OpenAI</option>
+              <option value="gemini" disabled>Gemini (coming soon)</option>
+              <option value="anthropic" disabled>
+                Anthropic (coming soon)
+              </option>
+              <option value="custom" disabled>Custom API (coming soon)</option>
+            </select></label
+          >
+          <label
+            >OpenAI API key
+            <div class="secret">
+              <input
+                id="apiKey"
+                type="password"
+                autocomplete="off"
+                placeholder="sk-…"
+              /><button id="reveal" type="button">Show</button>
+            </div>
+            <small
+              >Stored locally by Chrome. For team/production use, route requests
+              through your own authenticated backend.</small
+            ></label
+          >
+          <label>Model<input id="model" placeholder="gpt-4.1-mini" /></label
+          ><label
+            >Custom OpenAI-compatible Responses endpoint (optional)<input
+              id="customEndpoint"
+              type="url"
+              placeholder="https://api.openai.com/v1/responses" /></label
+          ><button id="test" type="button" class="secondary">
+            Test connection</button
+          ><span id="test-result"></span>
+        </section>
+        <section>
+          <h2>Answer preferences</h2>
+          <label
+            >Answer language<select id="language">
+              <option>Indonesian</option>
+              <option>English</option>
+              <option>Same as page</option>
+            </select></label
+          ><label
+            >Context length <output id="context-output"></output
+            ><input
+              id="contextLength"
+              type="range"
+              min="3000"
+              max="30000"
+              step="1000" /></label
+          ><label
+            >Custom RFOX prompt<textarea
+              id="customPrompt"
+              rows="4"
+              placeholder="Example: Explain for a beginner and include examples."
+            ></textarea>
+          </label>
+        </section>
+        <section>
+          <h2>Page experience</h2>
+          <label class="toggle"
+            ><span
+              ><b>Floating AI button</b
+              ><small>Show a draggable Ask AI button on webpages.</small></span
+            ><input id="floatingButton" type="checkbox" /></label
+          ><label class="toggle"
+            ><span
+              ><b>Screenshot fallback</b
+              ><small
+                >Capture the visible tab only when no readable DOM text is
+                found.</small
+              ></span
+            ><input id="screenshotFallback" type="checkbox"
+          /></label>
+          <p class="privacy">
+            🔒 Your page content is only analyzed when you click Ask RFOX, use
+            the shortcut, or choose the context-menu action.
+          </p>
+        </section>
+        <div class="save-row">
+          <button class="primary" type="submit">Save settings</button
+          ><span id="saved"></span>
+        </div>
+      </form>
+    </main>
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

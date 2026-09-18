@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "One-Click AI Reader",
+  "version": "1.0.0",
+  "description": "Select a question area and analyze only that content with AI.",
+  "permissions": ["activeTab", "storage", "contextMenus", "scripting"],
+  "host_permissions": ["https://api.openai.com/*"],
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_title": "Ask AI"
+  },
+  "options_page": "src/options/options.html",
+  "commands": {
+    "select-question": {
+      "suggested_key": { "default": "Ctrl+Shift+S", "mac": "Command+Shift+S" },
+      "description": "Select a question area"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["src/content/text-extractor.js", "src/content/question-detector.js", "src/content/selection-overlay.js", "src/content/selection-mode.js", "src/content/content.js"],
+      "css": ["src/content/content.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

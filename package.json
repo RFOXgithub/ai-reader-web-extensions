@@ -1,0 +1,13 @@
+{
+  "name": "one-click-ai-reader",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "node scripts/build.js"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5"
+  }
+}

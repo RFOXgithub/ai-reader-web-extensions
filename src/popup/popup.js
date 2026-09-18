@@ -1,0 +1,6 @@
+import { getSettings } from "../utils/storage.js";
+const $=(id)=>document.getElementById(id);
+const escapeHtml=(s)=>String(s).replace(/[&<>"']/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+async function refresh(){const settings=await getSettings();$("provider").textContent=settings.provider==="openai"?"OpenAI":settings.provider;$("connection").textContent=settings.apiKey?"Configured":"Not configured";$("dot").classList.toggle("ok",Boolean(settings.apiKey));const{history=[]}=await chrome.storage.local.get("history");$("history-list").innerHTML=history.slice(0,5).map((x)=>`<div class="history-item"><b>${escapeHtml(x.title||"Selected question")}</b><small>${new Date(x.createdAt).toLocaleString()}</small></div>`).join("")||'<div class="history-item"><small>No history yet</small></div>';}
+async function start(){const response=await chrome.runtime.sendMessage({type:"START_SELECTION"}).catch((e)=>({ok:false,error:e.message}));if(response?.ok)window.close();else{$("ready").classList.add("hidden");$("error").classList.remove("hidden");$("error-text").textContent=response?.error||"Open a regular website tab and try again.";}}
+$("select").onclick=start;$("retry").onclick=start;$("settings").onclick=()=>chrome.runtime.openOptionsPage();$("history-toggle").onclick=()=>$("history-list").classList.toggle("hidden");refresh();
