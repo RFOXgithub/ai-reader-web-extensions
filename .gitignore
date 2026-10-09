@@ -1,4 +1,41 @@
+# Dependencies & build output
 node_modules/
 dist/
+
+# Environment & secrets
 .env
+.env.*
+!.env.example
+
+# Logs
 *.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude Code & AI assistant files (skills, settings, memory)
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.mcp.json
+.cursor/
+.cursorrules
+.windsurf/
+.windsurfrules
+.aider*
+.continue/
+.github/copilot-instructions.md
+.agents/
+.skills/
+skills/
+AGENTS.md
+GEMINI.md
+
+# Packaged extension
+*.zip
+*.crx
+*.pem
